@@ -1,0 +1,24 @@
+<body>
+
+<p id="out"></p>
+
+<script>
+	const e = document.getElementById("out");
+
+	window.onfocus = (ev) => {
+		e.innerHTML += "gained focus<br/>";
+	};
+
+	window.onblur = (ev) => {
+		e.innerHTML += "lost focus<br/>";
+	};
+
+	document.onvisibilitychange = (ev) => {
+		if (document.visibilityState == "visible") {
+			e.innerHTML += "tab is active<br/>";
+		} else {
+			e.innerHTML += "tab is inactive<br/>";
+		}
+	};
+</script>
+</body>
