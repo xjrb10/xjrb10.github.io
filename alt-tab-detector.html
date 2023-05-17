@@ -1,24 +1,65 @@
-<body>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Alt Tab Detector</title>
 
-<p id="out"></p>
+    <style>
+        body {
+            margin: 0;
+            font-family: sans-serif;
+            text-align: center;
+            color: #fff;
+            justify-content: center;
+        }
+
+        h1 {
+            font-size: 6em;
+            font-weight: 100;
+        }
+
+        h4 {
+            font-size: 3em;
+            font-weight: 100;
+        }
+
+        .centered {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            padding: 10px;
+        }
+    </style>
+</head>
+<body style="background: #17B169">
+<div class="centered">
+    <h1 id="header">No detections yet...</h1>
+    <h4 id="subheading">Current tab is focused</h4>
+</div>
 
 <script>
-	const e = document.getElementById("out");
+    window.onfocus = () => onFocus();
+    window.onblur = () => onBlur();
+    document.onvisibilitychange = () => document.visibilityState === "visible" ? onFocus() : onBlur();
 
-	window.onfocus = (ev) => {
-		e.innerHTML += "gained focus<br/>";
-	};
+    const header = document.getElementById("header");
+    const subheading = document.getElementById("subheading");
 
-	window.onblur = (ev) => {
-		e.innerHTML += "lost focus<br/>";
-	};
+    function onFocus() {
+        subheading.style.color = "#FFF";
+        document.body.style.background = "#17B169";
+        subheading.innerText = "Current tab is in focus";
+    }
 
-	document.onvisibilitychange = (ev) => {
-		if (document.visibilityState == "visible") {
-			e.innerHTML += "tab is active<br/>";
-		} else {
-			e.innerHTML += "tab is inactive<br/>";
-		}
-	};
+    function onBlur() {
+        header.innerText = "Alt-Tab detected!"
+        header.style.textShadow = "0 0 20px #ffd23f";
+        document.body.style.background = "#982649";
+        //subheading.style.color = "#FE5D26";
+        subheading.innerText = "Current tab is NOT in focus";
+        header.style.fontWeight = "400";
+    }
 </script>
 </body>
+</html>
